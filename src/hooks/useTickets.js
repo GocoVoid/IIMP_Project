@@ -41,7 +41,7 @@ export const useTickets = (_currentUserId, _role) => {
       id:         c.id,
       author:     c.user?.name ?? c.author ?? 'Unknown',
       text:       c.commentText ?? c.text ?? '',
-      isInternal: c.isInternal ?? false,
+      internal: c.internal ?? c.isInternal ?? false,
       createdAt:  c.createdAt,
     })),
     attachments: (t.attachments ?? []).map(a => ({
@@ -182,11 +182,12 @@ export const useTickets = (_currentUserId, _role) => {
   const addComment = useCallback(async (incidentKey, text, _authorName, internal) => {
     console.log(internal);
     const res = await api.addComment(incidentKey, text, internal)
+    console.log(res);
     const newComment = {
       id:         res.id,
-      author:     res.user?.name ?? _authorName ?? 'You',
+      author:     res.authorName ?? 'You',
       text:       res.commentText ?? text,
-      isInternal: res.isInternal ?? res.internal,
+      isInternal: res.internal,
       createdAt:  res.createdAt,
     };
     setTickets(prev => prev.map(t =>

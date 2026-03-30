@@ -64,7 +64,7 @@ export const createIncident = (data) =>
   });
 
 export const uploadFiles = (id, formData) => 
-  post(`/incidents/${id}/uploadAttachments`, { formData })
+  post(`/incidents/${id}/uploadAttachments`, formData)
 
 /**
  * PATCH /incidents/:incidentKey/status
@@ -159,6 +159,30 @@ export const deleteAttachment = (incidentKey, attachmentId) =>
  */
 export const getAuditLog = (incidentKey) =>
   get(`/incidents/audit/${incidentKey}`);
+
+
+/* ══════════════════════════════════════════════════════════
+   Resolution Note
+══════════════════════════════════════════════════════════ */
+ 
+/**
+ * GET /incidents/:incidentKey/resolution-note
+ * Returns: { resolutionNote: string | null }
+ * Roles: SUPPORT_STAFF (own assigned tickets), MANAGER, ADMIN
+ * Employees cannot see this note.
+ */
+export const getResolutionNote = (incidentKey) =>
+  get(`/notes/getResolutionNote/${incidentKey}`);
+ 
+/**
+ * PUT /incidents/:incidentKey/resolution-note
+ * Body: { resolutionNote: string }
+ * Creates or replaces the resolution note for the ticket.
+ * Roles: SUPPORT_STAFF (own assigned tickets), ADMIN
+ * Server sets: updatedBy (from JWT), updatedAt, adds audit entry (RESOLUTION_NOTE_ADDED / RESOLUTION_NOTE_UPDATED)
+ */
+export const saveResolutionNote = (incidentKey, resolutionNote) =>
+  post(`/notes/addResolutionNote`, { incidentKey, resolutionNote });  
 
 /* ══════════════════════════════════════════════════════════
    Stats  (used by overview/dashboard pages)

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from '../shared/Modal';
 import { DEPARTMENTS_MAP, DEPARTMENT_NAMES, PRIORITIES } from '../../data/mockData';
 import { createIncident, getPriority } from '../../services/incidentService';
+import { uploadFiles } from '../../services/incidentService';
 
 const INITIAL = { title: '', department: '', category: '', priority: '', description: '' };
 
@@ -102,8 +103,8 @@ const CreateTicketModal = ({ isOpen, onClose, onSubmit }) => {
           formData.append("file", file);
         });
 
-        const response = await uploadFiles(creationResponse.id, formData);
-        const data = await response.json();
+        const response = await uploadFiles(creationResponse.incidentKey, formData);
+        const data = await response;
         console.log("Uploaded:", data);
     
       } catch (err) {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBadge, PriorityBadge } from '../shared/TicketBadge';
+import { saveResolutionNote } from '../../services/incidentService';
 
 /* ── Allowed transitions for Support Staff ──────────────── */
 const SUPPORT_TRANSITIONS = {
@@ -30,7 +31,7 @@ export const UpdateStatusPanel = ({ ticket, onUpdateStatus }) => {
     setLoading(true);
     setSuccess('');
     await new Promise((r) => setTimeout(r, 500));
-    onUpdateStatus(ticket.id, newStatus, note);
+    saveResolutionNote(ticket.incidentKey, note);
     setSuccess(`Status updated to "${newStatus}"`);
     setNote('');
     setLoading(false);
