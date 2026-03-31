@@ -181,8 +181,8 @@ export const getResolutionNote = (incidentKey) =>
  * Roles: SUPPORT_STAFF (own assigned tickets), ADMIN
  * Server sets: updatedBy (from JWT), updatedAt, adds audit entry (RESOLUTION_NOTE_ADDED / RESOLUTION_NOTE_UPDATED)
  */
-export const saveResolutionNote = (incidentKey, resolutionNote) =>
-  post(`/notes/addResolutionNote`, { incidentKey, resolutionNote });  
+export const saveResolutionNote = (incidentKey, note) =>
+  post(`/notes/addResolutionNote`, { incidentKey, note });  
 
 /* ══════════════════════════════════════════════════════════
    Stats  (used by overview/dashboard pages)

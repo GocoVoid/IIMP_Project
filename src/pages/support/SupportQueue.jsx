@@ -7,6 +7,7 @@ import { useSupportTickets } from '../../hooks/useSupportTickets';
 import { useTickets } from '../../hooks/useTickets';
 import { SupportKPICards, SystemKPICards } from '../../components/admin/AdminComponents';
 import { LoadingState } from '../../components/shared/PageState';
+import { getComments } from '../../services/incidentService';
 
 const SupportQueue = () => {
   const { user } = useAuthContext();
@@ -130,11 +131,11 @@ const SupportQueue = () => {
                 </div>
 
                 <UpdateStatusPanel ticket={selected} onUpdateStatus={handleUpdateStatus} />
-                {/* <CommentAttachmentPanel
+                <CommentAttachmentPanel
                   ticket={selected}
                   onAddComment={handleAddComment}
                   authorName={user?.fullName}
-                /> */}
+                />
               </>
             ) : (
               <div className="h-72 flex items-center justify-center bg-white rounded-2xl

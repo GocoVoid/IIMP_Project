@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBadge, PriorityBadge } from '../shared/TicketBadge';
-import { saveResolutionNote } from '../../services/incidentService';
+import { getComments, saveResolutionNote } from '../../services/incidentService';
 
 /* ── Allowed transitions for Support Staff ──────────────── */
 const SUPPORT_TRANSITIONS = {
@@ -31,7 +31,7 @@ export const UpdateStatusPanel = ({ ticket, onUpdateStatus }) => {
     setLoading(true);
     setSuccess('');
     await new Promise((r) => setTimeout(r, 500));
-    saveResolutionNote(ticket.incidentKey, note);
+    saveResolutionNote(ticket.id, note);
     setSuccess(`Status updated to "${newStatus}"`);
     setNote('');
     setLoading(false);
@@ -100,11 +100,11 @@ export const UpdateStatusPanel = ({ ticket, onUpdateStatus }) => {
 };
 
 /* ── Comment & Attachment Panel ─────────────────────────── */
-export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName }) => {
+export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName}) => {
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [files,   setFiles]   = useState([]);
-
+  
   if (!ticket) return null;
 
   const handleSubmit = async (e) => {
@@ -139,17 +139,17 @@ export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName }) => 
         {ticket.comments?.map((c) => (
           <div key={c.id} className="flex gap-3">
             <div className="w-6 h-6 rounded-lg bg-indigo-100 flex items-center justify-center text-[10px] font-semibold text-indigo-700 shrink-0 mt-0.5">
-              {c.author.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+              {c.user.name}
             </div>
             <div className="flex-1 bg-gray-50 rounded-xl px-3 py-2">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-medium text-gray-800">{c.author}</span>
+                <span className="text-xs font-medium text-gray-800">{c.user.name}</span>
                 <span className="text-[10px] text-gray-400">{formatDate(c.createdAt)}</span>
               </div>
               <p className="text-xs text-gray-700 leading-relaxed">{c.text}</p>
 
               {/* Existing attachments on comment */}
-              {c.attachments?.length > 0 && (
+              {/* {c.attachments?.length > 0 && (
                 <div className="mt-2 space-y-1">
                   {c.attachments.map((a, i) => (
                     <a key={i} href={a.url} target="_blank" rel="noreferrer"
@@ -163,7 +163,7 @@ export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName }) => 
                     </a>
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         ))}
@@ -171,16 +171,16 @@ export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName }) => 
 
       {/* Add comment form */}
       <form onSubmit={handleSubmit} className="space-y-3">
-        <textarea
+        {/* <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           rows={3}
           placeholder="Add a comment…"
           className="w-full px-3 py-2.5 text-sm rounded-xl border border-gray-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
-        />
+        /> */}
 
         {/* File upload trigger */}
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <label className="flex items-center gap-1.5 text-xs text-indigo-600 hover:text-indigo-700 cursor-pointer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
               strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -201,7 +201,7 @@ export const CommentAttachmentPanel = ({ ticket, onAddComment, authorName }) => 
           <span className="text-[10px] text-gray-400">
             {5 - (ticket.attachments?.length ?? 0) - files.length} slot(s) remaining
           </span>
-        </div>
+        </div> */}
 
         {/* Selected file preview list */}
         {files.length > 0 && (

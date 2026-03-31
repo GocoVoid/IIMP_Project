@@ -36,6 +36,13 @@ const SupportOverview = () => {
 
   const { selected, openTicket, closeTicket } = useTicketDetail();
 
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Morning';
+    if (h < 17) return 'Afternoon';
+    return 'Evening';
+  };
+
   /* ✅ Fetch on mount */
   useEffect(() => { fetchAll(); }, []);
 
@@ -53,7 +60,7 @@ const SupportOverview = () => {
         {/* Header */}
         <div>
           <h2 className="text-lg font-semibold text-gray-900">
-            Welcome back, {user?.fullName?.split(' ')[0]}
+            Good {getGreeting()}, {user?.fullName?.split(' ')[0]}
           </h2>
           <p className="text-sm text-gray-500 mt-0.5">Your current workload at a glance.</p>
         </div>

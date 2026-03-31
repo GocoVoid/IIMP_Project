@@ -498,7 +498,8 @@ const TicketDetailModal = ({
     if (role !== 'SUPPORT_STAFF' && role !== 'MANAGER' && role !== 'ADMIN') return;
     try {
       const data = await getResolutionNote(ticket.id);
-      const note = data?.resolutionNote ?? data?.note ?? '';
+      console.log(data[0].note);
+      const note = data[0]?.note ?? '';
       setResolutionNote(note);
       setTicket(p => ({ ...p, resolutionNote: note }));
     } catch { /* keep existing */ }
