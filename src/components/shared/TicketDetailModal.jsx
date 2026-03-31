@@ -328,8 +328,8 @@ const ActionsPanel = ({ ticket, role, user, onUpdateStatus, onAssign, onAddComme
     setLoading('comment');
     try {
       const response = await onAddComment(ticket.id, comment.trim(), user?.fullName, isInternal);
-      console.log(response);
-      console.log(isInternal," in TicketDetailModal (231)");
+      // console.log(response);
+      // console.log(isInternal," in TicketDetailModal (231)");
       setComment('');
       setIsInternal(false);
       flash('Comment posted.');
@@ -394,18 +394,6 @@ const ActionsPanel = ({ ticket, role, user, onUpdateStatus, onAssign, onAddComme
           </div>
         </div>
       )}
-
-
-
-      {/* Resolution Note — support staff can write; manager/admin can view */}
-      {/* {(role === 'SUPPORT_STAFF' || role === 'MANAGER' || role === 'ADMIN') && (
-        <ResolutionNotePanel
-          ticket={ticket}
-          role={role}
-          user={user}
-          onSaveResolutionNote={onSaveResolutionNote}
-        />
-      )} */}
 
       {/* Add comment */}
       <div>
@@ -498,7 +486,7 @@ const TicketDetailModal = ({
     if (role !== 'SUPPORT_STAFF' && role !== 'MANAGER' && role !== 'ADMIN') return;
     try {
       const data = await getResolutionNote(ticket.id);
-      console.log(data[0].note);
+      // console.log(data[0].note);
       const note = data[0]?.note ?? '';
       setResolutionNote(note);
       setTicket(p => ({ ...p, resolutionNote: note }));
@@ -721,7 +709,6 @@ const TicketDetailModal = ({
                     </div>
                   ) : (
                     ticket.comments
-                      .filter(c => !(c.internal))
                       .map(c => (
                         <CommentBubble key={c.id} comment={c} isOwn={c.author === user?.fullName} />
                       ))

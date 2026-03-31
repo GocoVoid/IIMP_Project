@@ -7,20 +7,14 @@ import { useSupportTickets } from '../../hooks/useSupportTickets';
 import { useTickets } from '../../hooks/useTickets';
 import { SupportKPICards, SystemKPICards } from '../../components/admin/AdminComponents';
 import { LoadingState } from '../../components/shared/PageState';
-import { getComments } from '../../services/incidentService';
 
 const SupportQueue = () => {
   const { user } = useAuthContext();
 
-  /* ✅ Queue data + stats from /support endpoints */
   const { tickets, stats, loading, error, fetchAll } = useSupportTickets();
-
-  /* ✅ Mutations still go through useTickets */
   const { updateStatus, addComment } = useTickets(user?.id, 'SUPPORT_STAFF');
-
   const [selected, setSelected] = useState(null);
 
-  /* ✅ Fetch on mount */
   useEffect(() => { fetchAll(); }, []);
 
   const handleUpdateStatus = async (ticketId, newStatus, note) => {

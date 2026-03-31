@@ -30,7 +30,7 @@ const normalise = (t) => ({
   closedAt:       t.closedAt,
   comments: (t.comments ?? []).map(c => ({
     id: c.id, author: c.user?.name ?? c.author ?? 'Unknown',
-    text: c.commentText ?? c.text ?? '', isInternal: c.isInternal ?? false, createdAt: c.createdAt,
+    text: c.commentText ?? c.text ?? '', isInternal: c.internal ?? false, createdAt: c.createdAt,
   })),
   attachments: (t.attachments ?? []).map(a => ({
     id: a.id, fileName: a.fileName, fileUrl: a.fileUrl, fileSize: a.fileSize, contentType: a.contentType,
@@ -71,7 +71,7 @@ export const AdminTicketProvider = ({ children }) => {
       /* Sort newest first in case backend doesn't honour the sort param */
       list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setAllTickets(list);
-      console.log(list);
+      // console.log(list);
 
       if (statsRes) {
         setStats({
