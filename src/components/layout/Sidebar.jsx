@@ -95,7 +95,7 @@ const Sidebar = () => {
         className={`flex items-center h-16 px-4 shrink-0 ${collapsed ? 'justify-center' : 'gap-3'}`}
         style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
       >
-        <PetalLogo size={28} />
+        {/* <PetalLogo size={28} /> */}
         {!collapsed && (
           <div>
             <p className="text-white font-semibold text-sm leading-tight tracking-tight">IIMP</p>
