@@ -64,11 +64,11 @@ const ROLE_LABELS = {
 
 /* ── Pratiti petal logo ──────────────────────────────────────── */
 const PetalLogo = ({ size = 30 }) => (
-  <svg width="36" height="36" viewBox="0 0 40 40" className="petal-spinner">
-    <ellipse cx="14" cy="14" rx="7" ry="11" fill="#14a0c8" opacity="0.9"/>
-    <ellipse cx="26" cy="14" rx="7" ry="11" fill="#3c3c8c" opacity="0.9"/>
-    <ellipse cx="14" cy="26" rx="7" ry="11" fill="#783c78" opacity="0.9"/>
-    <ellipse cx="26" cy="26" rx="7" ry="11" fill="#252568" opacity="0.85"/>
+  <svg width="36" height="36" viewBox="0 0 40 40" className="petal">
+    <ellipse cx="14" cy="14" rx="7" ry="11" fill="#14a0c8"/>
+    <ellipse cx="26" cy="14" rx="7" ry="11" fill="#3c3c8c"/>
+    <ellipse cx="14" cy="26" rx="7" ry="11" fill="#783c78"/>
+    <ellipse cx="26" cy="26" rx="7" ry="11" fill="#252568"/>
   </svg>
 );
 
