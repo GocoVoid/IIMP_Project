@@ -85,7 +85,7 @@ const EmployeeOverview = () => {
               Good {getGreeting()}, {user?.fullName?.split(' ')[0]}
             </h2>
             <p className="text-sm text-gray-500 mt-0.5">
-              Here's your incident summary for today.
+              Here's your incident summary
             </p>
           </div>
           {/* <button
